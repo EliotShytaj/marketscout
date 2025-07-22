@@ -1,65 +1,107 @@
-⚛️ TradeTrack Frontend Setup
-This is the frontend of TradeTrack, a personal stock and trade tracking dashboard. Built with Vite + React + Tailwind CSS, it visualizes real-time market data and provides a clean UI for monitoring portfolio performance.
+# 📊 TradeTrack
 
-🧰 Tech Stack
-React
+TradeTrack is a personal stock tracking dashboard that visualizes real-time market data. Built with **Spring Boot** and **React**, it helps you monitor portfolio performance in a clean, responsive UI.
 
-Vite
+---
 
-Tailwind CSS
+## 🧰 Tech Stack
 
-DaisyUI (optional UI components)
+### Backend
+- Java 17 + Spring Boot
+- REST APIs
+- PostgreSQL
+- Finnhub API
+- Spring Security (optional for auth)
 
-Axios (for API calls)
+### Frontend
+- React + Vite
+- Tailwind CSS
+- DaisyUI
+- Axios or React Query
 
-🚀 Local Setup Instructions
-1. Clone the repo
-bash
-Copy
-Edit
+---
+
+## ⚙️ Project Structure
+
+```
+tradetrack/
+├── backend/ → Spring Boot app
+│   ├── src/
+│   └── pom.xml
+├── frontend/ → React + Vite app
+│   ├── src/
+│   └── package.json
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 🚀 Local Setup Instructions
+
+### 🔹 1. Clone the Repository
+```bash
 git clone https://github.com/YOUR_USERNAME/tradetrack.git
-cd tradetrack/frontend
-2. Install dependencies
-bash
-Copy
-Edit
+cd tradetrack
+```
+
+### 🔹 2. Backend Setup (Spring Boot)
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+Configure `src/main/resources/application.properties`:
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/tradetrack
+spring.datasource.username=YOUR_DB_USER
+spring.datasource.password=YOUR_DB_PASS
+finnhub.api.key=YOUR_API_KEY_HERE
+```
+
+The backend runs at: **http://localhost:8080**
+
+Sample endpoint:
+```http
+GET /api/hello
+returns "Hello from TradeTrack backend!"
+```
+
+### 🔹 3. Frontend Setup (React + Vite)
+```bash
+cd frontend
 npm install
-3. Set environment variables
-Create a .env file in the frontend/ folder:
+```
 
-bash
-Copy
-Edit
+Create a `.env` file in `frontend/`:
+```env
 VITE_API_URL=http://localhost:8080
-If you're not using a backend yet, this can point to a placeholder.
+```
 
-4. Start the development server
-bash
-Copy
-Edit
+Start the dev server:
+```bash
 npm run dev
-The app should open at:
-http://localhost:5173
+```
 
-📁 Folder Structure
-bash
-Copy
-Edit
-frontend/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   ├── App.jsx
-│   └── main.jsx
-├── index.html
-├── tailwind.config.js
-├── postcss.config.cjs
-├── .env
-└── package.json
-🧠 Notes
-Tailwind is already configured with PostCSS and DaisyUI.
+The frontend runs at: **http://localhost:5173**
 
-You can start creating pages in src/pages/ and components in src/components/.
+---
 
-Make sure your backend API (e.g. Spring Boot) matches the VITE_API_URL in .env.
+## 🌐 Deployment Note
+
+- Never expose your Finnhub API key in the frontend.
+- Store it in backend environment variables or secure config.
+
+---
+
+## 📄 License
+
+MIT — Use for personal or educational projects.  
+Commercial use may require a separate Finnhub license.
+
+---
+
+## 💬 Contact
+
+Made with 💻 by **Eliot Shytaj**.  
+Feel free to fork, contribute, or reach out!
