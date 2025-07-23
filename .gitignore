@@ -33,21 +33,10 @@ lerna-debug.log*
 # === IntelliJ Specific ===
 !.vscode/extensions.json
 
-# === Eclipse / Spring Tool Suite (STS) ===
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-# === NetBeans ===
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
 # === macOS System Files ===
 .DS_Store
+
+# Environment files
+.env
+frontend/.env*
+
