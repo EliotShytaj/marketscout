@@ -15,19 +15,31 @@ public class FinnhubController {
         this.finnhubService = finnhubService;
     }
 
-    //latest quote for the ticker
+    // latest quote for the ticker
     @GetMapping("/quote/{symbol}")
     public ResponseEntity<String> getQuote(@PathVariable String symbol) {
         String json = finnhubService.getQuote(symbol);
         return ResponseEntity.ok(json);
     }
 
-    //company profile
+    // company profile (more info)
     @GetMapping("/profile/{symbol}")
     public ResponseEntity<String> getProfile(@PathVariable String symbol) {
         String json = finnhubService.getCompanyProfile(symbol);
         return ResponseEntity.ok(json);
     }
+
+    // company profile (less info)
+    @GetMapping("/profile2/{symbol}")
+    public ResponseEntity<String> getProfile2(@PathVariable String symbol) {
+        String json = finnhubService.getCompanyProfile2(symbol);
+        return ResponseEntity.ok(json);
+    }
+
+    // company-specific news (last 30 days)
+    @GetMapping("/news/{symbol}")
+    public ResponseEntity<String> getCompanyNews(@PathVariable String symbol) {
+        String json = finnhubService.getCompanyNews(symbol);
+        return ResponseEntity.ok(json);
+    }
 }
-
-
