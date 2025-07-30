@@ -4,53 +4,70 @@ package com.tradetrack.backend.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.time.LocalDate;
 
 @Service
 public class FinnhubService {
-
-    private final RestTemplate restTemplate;
+    private final RestTemplate rest;
     private final String apiKey;
 
-    public FinnhubService(RestTemplate restTemplate,
+    public FinnhubService(RestTemplate rest,
                           @Value("${finnhub.api.key}") String apiKey) {
-        this.restTemplate = restTemplate;
-        this.apiKey       = apiKey;
+        this.rest   = rest;
+        this.apiKey = apiKey;
     }
 
-    //latest quote for the ticker
     public String getQuote(String symbol) {
-        String url = String.format(
-                "https://finnhub.io/api/v1/quote?symbol=%s&token=%s",
-                symbol, apiKey
-        );
-        return restTemplate.getForObject(url, String.class);
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/quote?symbol={s}&token={k}",
+                String.class, symbol, apiKey);
     }
 
-    // company profile for the ticker (more info)
     public String getCompanyProfile(String symbol) {
-        String url = String.format(
-                "https://finnhub.io/api/v1/stock/profile?symbol=%s&token=%s",
-                symbol, apiKey
-        );
-        return restTemplate.getForObject(url, String.class);
-    }
-    //company profile for the ticker less info.
-    public String getCompanyProfile2(String symbol) {
-        String url = String.format(
-                "https://finnhub.io/api/v1/stock/profile2?symbol=%s&token=%s",
-                symbol, apiKey
-        );
-        return restTemplate.getForObject(url, String.class);
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/stock/profile2?symbol={s}&token={k}",
+                String.class, symbol, apiKey);
     }
 
-    public String getCompanyNews(String symbol) {
-        String from = LocalDate.now().minusDays(30).toString();
-        String to   = LocalDate.now().toString();
-        String url = String.format(
-                "https://finnhub.io/api/v1/company-news?symbol=%s&from=%s&to=%s&token=%s",
-                symbol, from, to, apiKey
-        );
-        return restTemplate.getForObject(url, String.class);
+    public String getCompanyNews(String symbol, String from, String to) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/company-news?symbol={s}&from={f}&to={t}&token={k}",
+                String.class, symbol, from, to, apiKey);
+    }
+
+    public String getEarningsCalendar(String from, String to) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/calendar/earnings?from={f}&to={t}&token={k}",
+                String.class, from, to, apiKey);
+    }
+
+    public String searchSymbols(String query) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/search?q={q}&token={k}",
+                String.class, query, apiKey);
+    }
+
+    public String getRecommendations(String symbol) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/stock/recommendation?symbol={s}&token={k}",
+                String.class, symbol, apiKey);
+    }
+
+    public String getInsiderTransactions(String symbol) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/stock/insider-transactions?symbol={s}&token={k}",
+                String.class, symbol, apiKey);
+    }
+
+    public String getPeers(String symbol) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/stock/peers?symbol={s}&token={k}",
+                String.class, symbol, apiKey);
+    }
+
+    public String getKeyMetrics(String symbol) {
+        return rest.getForObject(
+                "https://finnhub.io/api/v1/stock/metric?symbol={s}&metric=all&token={k}",
+                String.class, symbol, apiKey);
     }
 }
+

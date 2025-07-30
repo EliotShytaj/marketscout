@@ -9,37 +9,63 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/finnhub")
 public class FinnhubController {
 
-    private final FinnhubService finnhubService;
+    private final FinnhubService svc;
 
-    public FinnhubController(FinnhubService finnhubService) {
-        this.finnhubService = finnhubService;
+    public FinnhubController(FinnhubService svc) {
+        this.svc = svc;
     }
 
-    // latest quote for the ticker
     @GetMapping("/quote/{symbol}")
-    public ResponseEntity<String> getQuote(@PathVariable String symbol) {
-        String json = finnhubService.getQuote(symbol);
-        return ResponseEntity.ok(json);
+    public ResponseEntity<String> quote(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getQuote(symbol));
     }
 
-    // company profile (more info)
     @GetMapping("/profile/{symbol}")
-    public ResponseEntity<String> getProfile(@PathVariable String symbol) {
-        String json = finnhubService.getCompanyProfile(symbol);
-        return ResponseEntity.ok(json);
+    public ResponseEntity<String> profile(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getCompanyProfile(symbol));
     }
 
-    // company profile (less info)
-    @GetMapping("/profile2/{symbol}")
-    public ResponseEntity<String> getProfile2(@PathVariable String symbol) {
-        String json = finnhubService.getCompanyProfile2(symbol);
-        return ResponseEntity.ok(json);
-    }
-
-    // company-specific news (last 30 days)
     @GetMapping("/news/{symbol}")
-    public ResponseEntity<String> getCompanyNews(@PathVariable String symbol) {
-        String json = finnhubService.getCompanyNews(symbol);
-        return ResponseEntity.ok(json);
+    public ResponseEntity<String> news(
+            @PathVariable String symbol,
+            @RequestParam String from,
+            @RequestParam String to
+    ) {
+        return ResponseEntity.ok(svc.getCompanyNews(symbol, from, to));
     }
+
+    @GetMapping("/earnings")
+    public ResponseEntity<String> earnings(
+            @RequestParam String from,
+            @RequestParam String to
+    ) {
+        return ResponseEntity.ok(svc.getEarningsCalendar(from, to));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<String> search(@RequestParam String q) {
+        return ResponseEntity.ok(svc.searchSymbols(q));
+    }
+
+    @GetMapping("/recommendation/{symbol}")
+    public ResponseEntity<String> recommendation(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getRecommendations(symbol));
+    }
+
+    @GetMapping("/insider/{symbol}")
+    public ResponseEntity<String> insider(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getInsiderTransactions(symbol));
+    }
+
+    @GetMapping("/peers/{symbol}")
+    public ResponseEntity<String> peers(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getPeers(symbol));
+    }
+
+    @GetMapping("/metrics/{symbol}")
+    public ResponseEntity<String> metrics(@PathVariable String symbol) {
+        return ResponseEntity.ok(svc.getKeyMetrics(symbol));
+    }
+
 }
+
