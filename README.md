@@ -1,6 +1,8 @@
-# 📊 TradeTrack
+# ⚛️ TradeTrack – Stock & Trade Tracker
 
-TradeTrack is a personal stock tracking dashboard that visualizes real-time market data. Built with **Spring Boot** and **React**, it helps you monitor portfolio performance in a clean, responsive UI.
+**TradeTrack** is a clean dashboard for viewing real-time stock quotes, news, earnings calendars, insider trades, and basic watchlists.  
+Built with React + Vite + Tailwind CSS on the frontend, and Spring Boot + PostgreSQL on the backend.
+
 
 ---
 
