@@ -1,4 +1,4 @@
-package com.tradetrack.backend;
+package com.marketscout.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

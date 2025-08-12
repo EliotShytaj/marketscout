@@ -1,4 +1,4 @@
-package com.tradetrack.backend.service;
+package com.marketscout.backend.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

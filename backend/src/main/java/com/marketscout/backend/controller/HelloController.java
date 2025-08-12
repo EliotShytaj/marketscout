@@ -1,4 +1,4 @@
-package com.tradetrack.backend.controller;
+package com.marketscout.backend.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

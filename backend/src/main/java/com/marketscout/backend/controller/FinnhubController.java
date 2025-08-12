@@ -1,7 +1,7 @@
 // src/main/java/com/tradetrack/backend/controller/FinnhubController.java
-package com.tradetrack.backend.controller;
+package com.marketscout.backend.controller;
 
-import com.tradetrack.backend.service.FinnhubService;
+import com.marketscout.backend.service.FinnhubService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

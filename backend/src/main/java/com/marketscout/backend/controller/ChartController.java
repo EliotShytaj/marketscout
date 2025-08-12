@@ -1,6 +1,6 @@
-package com.tradetrack.backend.controller;
+package com.marketscout.backend.controller;
 
-import com.tradetrack.backend.service.ChartService;
+import com.marketscout.backend.service.ChartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
