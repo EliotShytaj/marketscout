@@ -1,0 +1,13 @@
+# Finnhub
+curl -i 'http://localhost:8080/api/finnhub/quote/AAPL'
+curl -i 'http://localhost:8080/api/finnhub/profile/AAPL'
+curl -i 'http://localhost:8080/api/finnhub/news/AAPL?from=2025-07-01&to=2025-07-30'
+curl -i 'http://localhost:8080/api/finnhub/earnings?from=2025-07-01&to=2025-07-31'
+curl -i 'http://localhost:8080/api/finnhub/search?q=apple'
+curl -i 'http://localhost:8080/api/finnhub/recommendation/AAPL'
+curl -i 'http://localhost:8080/api/finnhub/insider/AAPL'
+curl -i 'http://localhost:8080/api/finnhub/peers/AAPL'
+curl -i 'http://localhost:8080/api/finnhub/metrics/AAPL'
+
+#Twelvedata
+curl -i 'http://localhost:8080/api/twelvedata/candles/AAPL?interval=1day&startDate=2025-06-01&endDate=2025-07-30'
