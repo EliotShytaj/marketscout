@@ -15,7 +15,7 @@ export function TrendingStocks() {
         <TrendingUp className="h-5 w-5 text-primary" />
         Trending Stocks
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 gap-3">
         {TRENDING.map((symbol) => (
           <TrendingStockCard key={symbol} symbol={symbol} />
         ))}
@@ -47,14 +47,14 @@ function TrendingStockCard({ symbol }: { symbol: string }) {
   return (
     <Link
       href={`/symbol/${symbol}`}
-      className="p-4 bg-muted/50 rounded-lg hover:bg-muted transition-all group"
+      className="p-4 bg-muted/50 rounded-lg hover:bg-muted transition-all group overflow-hidden"
     >
       <div className="flex items-center justify-between mb-2">
-        <div className="text-lg font-bold group-hover:text-primary transition-colors">
+        <div className="text-lg font-bold group-hover:text-primary transition-colors truncate">
           {symbol}
         </div>
         <div
-          className={`flex items-center gap-1 text-xs font-semibold ${
+          className={`flex items-center gap-1 text-xs font-semibold flex-shrink-0 ml-2 ${
             isPositive ? "text-green-500" : "text-red-500"
           }`}
         >
@@ -63,11 +63,11 @@ function TrendingStockCard({ symbol }: { symbol: string }) {
           ) : (
             <TrendingDown className="h-3 w-3" />
           )}
-          {formatPercent(quote.changePct)}
+          <span className="whitespace-nowrap">{formatPercent(quote.changePct)}</span>
         </div>
       </div>
-      <div className="text-2xl font-bold mb-1">{formatCurrency(quote.price)}</div>
-      <div className={`text-sm ${isPositive ? "text-green-500" : "text-red-500"}`}>
+      <div className="text-xl font-bold mb-1 truncate">{formatCurrency(quote.price)}</div>
+      <div className={`text-sm truncate ${isPositive ? "text-green-500" : "text-red-500"}`}>
         {formatCurrency(quote.change)}
       </div>
     </Link>

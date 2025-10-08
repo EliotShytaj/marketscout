@@ -5,10 +5,11 @@ import { marketApi } from "@/lib/api";
 import { formatCurrency, formatPercent } from "@/lib/utils";
 import { TrendingUp, TrendingDown } from "lucide-react";
 
+// Use major tech stocks as proxies since indices may not be supported
 const INDICES = [
-  { symbol: "^GSPC", name: "S&P 500" },
-  { symbol: "^DJI", name: "Dow Jones" },
-  { symbol: "^IXIC", name: "Nasdaq" },
+  { symbol: "SPY", name: "S&P 500 (SPY)" },
+  { symbol: "DIA", name: "Dow Jones (DIA)" },
+  { symbol: "QQQ", name: "Nasdaq (QQQ)" },
 ];
 
 export function MarketOverview() {
