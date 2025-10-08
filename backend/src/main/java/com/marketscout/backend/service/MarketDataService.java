@@ -195,9 +195,15 @@ public class MarketDataService {
      */
     private Long parseTimestamp(String datetime) {
         try {
-            // Parse ISO datetime to Unix timestamp
+            // Try parsing as date-only format (yyyy-MM-dd)
+            if (datetime.length() == 10) {
+                java.time.LocalDate date = java.time.LocalDate.parse(datetime);
+                return date.atStartOfDay(java.time.ZoneId.of("America/New_York")).toEpochSecond();
+            }
+            // Try parsing as ISO datetime
             return java.time.Instant.parse(datetime).getEpochSecond();
         } catch (Exception e) {
+            log.warn("Failed to parse timestamp: {}", datetime);
             return null;
         }
     }
