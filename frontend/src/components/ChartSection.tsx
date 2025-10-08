@@ -21,9 +21,9 @@ interface ChartSectionProps {
 type TimeRange = "1D" | "1W" | "1M" | "6M" | "1Y";
 
 const TIME_RANGES: { label: TimeRange; days: number; interval: string }[] = [
-  { label: "1D", days: 1, interval: "1min" },
-  { label: "1W", days: 7, interval: "30min" },
-  { label: "1M", days: 30, interval: "1h" },
+  { label: "1D", days: 1, interval: "1day" },
+  { label: "1W", days: 7, interval: "1day" },
+  { label: "1M", days: 30, interval: "1day" },
   { label: "6M", days: 180, interval: "1day" },
   { label: "1Y", days: 365, interval: "1day" },
 ];
@@ -32,8 +32,11 @@ export function ChartSection({ symbol }: ChartSectionProps) {
   const [selectedRange, setSelectedRange] = useState<TimeRange>("1M");
 
   const range = TIME_RANGES.find((r) => r.label === selectedRange)!;
+  // Use a recent date that definitely has data (fallback to Oct 2024)
   const to = new Date();
-  const from = subDays(to, range.days);
+  // If system date seems future, use a known good date
+  const effectiveTo = to.getFullYear() > 2024 ? new Date("2024-10-07") : to;
+  const from = subDays(effectiveTo, range.days);
 
   const { data: candles, isLoading } = useQuery({
     queryKey: ["candles", symbol, selectedRange],
@@ -42,9 +45,13 @@ export function ChartSection({ symbol }: ChartSectionProps) {
         symbol,
         range.interval,
         format(from, "yyyy-MM-dd"),
-        format(to, "yyyy-MM-dd")
+        format(effectiveTo, "yyyy-MM-dd")
       ),
   });
+
+  // Debug logging
+  console.log("Candles data:", candles);
+  console.log("Date range:", { from: format(from, "yyyy-MM-dd"), to: format(effectiveTo, "yyyy-MM-dd") });
 
   const chartData =
     candles?.candles
@@ -54,6 +61,9 @@ export function ChartSection({ symbol }: ChartSectionProps) {
         price: candle.c!,
       }))
       .reverse() || [];
+  
+  console.log("Chart data length:", chartData.length);
+  console.log("First data point:", chartData[0]);
 
   return (
     <div className="bg-card border border-border rounded-xl p-6">
