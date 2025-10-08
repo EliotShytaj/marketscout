@@ -21,7 +21,7 @@ interface ChartSectionProps {
 type TimeRange = "1D" | "1W" | "1M" | "6M" | "1Y";
 
 const TIME_RANGES: { label: TimeRange; days: number; interval: string }[] = [
-  { label: "1D", days: 1, interval: "1day" },
+  { label: "1D", days: 5, interval: "1day" }, // Show 5 days to have enough data points
   { label: "1W", days: 7, interval: "1day" },
   { label: "1M", days: 30, interval: "1day" },
   { label: "6M", days: 180, interval: "1day" },
