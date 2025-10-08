@@ -49,10 +49,6 @@ export function ChartSection({ symbol }: ChartSectionProps) {
       ),
   });
 
-  // Debug logging
-  console.log("Candles data:", candles);
-  console.log("Date range:", { from: format(from, "yyyy-MM-dd"), to: format(effectiveTo, "yyyy-MM-dd") });
-
   const chartData =
     candles?.candles
       .filter((c) => c.t && c.c)
@@ -61,9 +57,6 @@ export function ChartSection({ symbol }: ChartSectionProps) {
         price: candle.c!,
       }))
       .reverse() || [];
-  
-  console.log("Chart data length:", chartData.length);
-  console.log("First data point:", chartData[0]);
 
   return (
     <div className="bg-card border border-border rounded-xl p-6">
