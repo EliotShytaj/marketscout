@@ -15,6 +15,7 @@ lerna-debug.log*
 
 # === Backend (Spring Boot + Maven) ===
 /backend/target/
+/backend/.env
 /backend/.mvn/
 /backend/mvnw
 /backend/mvnw.cmd
