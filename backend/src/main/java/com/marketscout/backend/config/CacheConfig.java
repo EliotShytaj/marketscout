@@ -15,18 +15,53 @@ public class CacheConfig {
     
     @Bean
     public CacheManager cacheManager() {
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager(
-                "quotes",      // 10 seconds
-                "candles",     // 10 minutes
-                "news",        // 5 minutes
-                "search",      // 5 minutes
-                "metrics"      // 10 minutes
-        );
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager();
         
+        // Set a default cache configuration (used as fallback)
         cacheManager.setCaffeine(Caffeine.newBuilder()
-                .expireAfterWrite(10, TimeUnit.SECONDS)
+                .expireAfterWrite(1, TimeUnit.MINUTES)
                 .maximumSize(1000));
         
         return cacheManager;
+    }
+    
+    @Bean
+    public Caffeine<Object, Object> quotesCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(10, TimeUnit.SECONDS)
+                .maximumSize(1000)
+                .recordStats();
+    }
+    
+    @Bean
+    public Caffeine<Object, Object> candlesCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(5, TimeUnit.MINUTES)
+                .maximumSize(500)
+                .recordStats();
+    }
+    
+    @Bean
+    public Caffeine<Object, Object> newsCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(5, TimeUnit.MINUTES)
+                .maximumSize(500)
+                .recordStats();
+    }
+    
+    @Bean
+    public Caffeine<Object, Object> searchCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(30, TimeUnit.MINUTES)
+                .maximumSize(200)
+                .recordStats();
+    }
+    
+    @Bean
+    public Caffeine<Object, Object> metricsCache() {
+        return Caffeine.newBuilder()
+                .expireAfterWrite(1, TimeUnit.HOURS)
+                .maximumSize(500)
+                .recordStats();
     }
 }

@@ -16,11 +16,13 @@ export default function SymbolPage() {
   const { data: quote, isLoading: quoteLoading } = useQuery({
     queryKey: ["quote", ticker],
     queryFn: () => marketApi.getQuote(ticker),
+    staleTime: 10 * 1000, // Quotes update every 10 seconds
   });
 
   const { data: metrics, isLoading: metricsLoading } = useQuery({
     queryKey: ["metrics", ticker],
     queryFn: () => marketApi.getMetrics(ticker),
+    staleTime: 60 * 60 * 1000, // Metrics cache for 1 hour
   });
 
   const { data: news, isLoading: newsLoading } = useQuery({
